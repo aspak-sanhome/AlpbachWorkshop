@@ -1,0 +1,26 @@
+#!/bin/bash
+LOG=/var/log/provision.log
+
+echo "$(date) Proviosion started" >> $LOG
+echo "Current WorksDir: $(pwd)"  >> $LOG
+echo "Starting Cloud Init..." >> $LOG
+echo "$(date) Change to static IP NGF: ${NGFIP} Netmask: ${NGFNM} Default Gateway: ${NGFGW}"
+/opt/phion/bin/editconf -f /opt/phion/config/configroot/boxnet.conf -d REFS -s gendev_eth0 >> $LOG
+/opt/phion/bin/editconf -f /opt/phion/config/configroot/boxnet.conf -d RENAMED -s gendev_eth0 >> $LOG
+/opt/phion/bin/cloud-setmip "${NGFIP}" "${NGFNM}" "${NGFGW}" >> $LOG
+/opt/phion/bin/cloud-enable-ssh --password >> $LOG
+echo "Try to get the par file from CC:"  >> $LOG
+echo "${CC_IP}" >> $LOG
+echo "With user:"  >> $LOG
+echo "${CC_User}" >> $LOG
+echo "From Range:"  >> $LOG
+echo "${CC_Range}" >> $LOG
+echo "From Cluster:"  >> $LOG
+echo "${CC_Cluster}" >> $LOG
+echo "This Box:"  >> $LOG
+echo "${CC_Box}" >> $LOG
+echo "${pwd}" | getpar -a "${CC_IP}" -u "${CC_User}" -r "${CC_Range}" -c "${CC_Cluster}" -b "${CC_Box}" -d /opt/phion/update/box.par >>$LOG
+#echo "$(date) Proviosion done - reboot disbled" >> $LOG
+#echo "Cuda-DemoTF" | getpar -a "20.101.172.11" -u "tf" -r "1" -c "Terraform" -b "Student1" -d /opt/phion/update/box.par >> log.log
+echo "$(date) Provisioning Done" >> $LOG
+#/usr/sbin/reboot
