@@ -14,10 +14,10 @@ terraform {
 # select cloud provider
 provider "azurerm" {
   features {}
-subscription_id = "2ead84a9-ca87-4a85-a9c2-b54dad688928"
-tenant_id       = "a0b6d24d-175f-4068-bac9-de5e3e363e15"
-client_id       = "065e54f3-6e57-4cc0-a7ff-b7c9718e6024"
-client_secret = "4oh8Q~945lREVAG5WBSZllp~14pXSI9NKTWGqbR3"
+subscription_id = ""
+tenant_id       = ""
+client_id       = ""
+client_secret = ""
 #client_secret   = ""
 }
 
