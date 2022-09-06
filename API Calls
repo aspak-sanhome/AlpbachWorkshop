@@ -1,0 +1,70 @@
+Endpoint	https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes
+Json Body	{
+ "name": "SC2<studentnumber>",
+  "confTemplateBinding": "STRONG",
+  "confTemplate": "Alpbach",
+  "boxModel": "fsc2.5",
+  "confTemplateParameters": [
+   {
+      "name": "SSID",
+      "value": " WiFi-<studentnumber>"
+    },
+    {
+      "name": "IoTEdgeConnectionString",
+      "value": “yourIoTConnectionString”
+    },
+    {
+      "name": "rootpwd",
+      "secureStringValue": "ngf1r3wall"
+    }
+  ]
+}
+curl	curl --request POST --insecure \
+  --url 'https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes?=' \
+  --header 'Authorization: Basic QVBJOkN1ZGEtRGVtb1RG' \
+  --header 'Content-Type: application/json' \
+  --data '{
+ "name": "SC2<studentnumber>",
+  "confTemplateBinding": "STRONG",
+  "confTemplate": "Alpbach",
+  "boxModel": "fsc2.5",
+  "confTemplateParameters": [
+    {
+      "name": "IoTEdgeConnectionString",
+      "value": "HostName=iot-alpbach.azure-devices.net;DeviceId=Student9;SharedAccessKey=E9ZRytslgS/6U0CziOmUrhyJMk62BMGCl1vB2mdprZo="
+    },
+    {
+      "name": "rootpwd",
+      "secureStringValue": "ngf1r3wall"
+    },
+		{
+			"name": "SSID",
+			"value": "WiFi-<studentnumber>"
+		}
+  ]
+}
+
+Enable SC
+
+Endpoint	https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes/ SC<studentnumber>/configevents/enableBox
+Json Body	
+Curl	curl --request POST --insecure \
+  --url https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes/ SC<studentnumber>/configevents/enableBox \
+  --header 'Authorization: Basic QVBJOkN1ZGEtRGVtb1RG'
+
+
+Push the configuration to the Zero Touch Deployment portal
+ 
+Endpoint	https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes/SC<studentnumber>/zerotouch/configurations
+Json Body	{
+"matcher": "serial",
+"matchingValue": "your serial"
+}
+curl	curl --request POST \
+  --url https://conftemplatecc.westeurope.cloudapp.azure.com:8443/rest/cc/v1/ranges/1/clusters/Terraform/boxes/SC<studentnumber>/zerotouch/configurations \
+  --header 'Authorization: Basic QVBJOkN1ZGEtRGVtb1RG' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"matcher": "serial",
+	"matchingValue": "your serial"
+}'
